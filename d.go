@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math"
 	"sort"
+	"strings"
 	"time"
 )
 
@@ -148,6 +149,29 @@ func (d D) Percentile(p float64) float64 {
 	sorted := d.Sort()
 	index := int(float64(d.Count()) * p)
 	return sorted[index]
+}
+
+func (d D) Report() string {
+	out := ""
+	out += fmt.Sprintf("Count: %d\n", d.Count())
+	out += fmt.Sprintf("Min: %f\n", d.Min())
+	out += fmt.Sprintf("Max: %f\n", d.Max())
+	out += fmt.Sprintf("Mean: %f\n", d.Mean())
+	out += fmt.Sprintf("Median: %f\n\n", d.Median())
+
+	numBins := d.Count() / 10
+	if numBins > 20 {
+		numBins = 20
+	}
+	bins, _ := d.OptimalBins(numBins)
+	histogram := d.BinUp(bins)
+	max := FromInts(histogram).Max()
+	for i := range histogram {
+
+		out += fmt.Sprintf("[%.3f, %.3f)\n%s (%d)\n", bins[i], bins[i+1], strings.Repeat("#", int(float64(20*histogram[i])/max)), histogram[i])
+	}
+
+	return out
 }
 
 /* Iterators and Filters */
