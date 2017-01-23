@@ -1,16 +1,12 @@
 package d
 
 type Table struct {
-	v        [][]Value
-	keys     []string
-	types    []ValueType
-	keyIndex map[string]int
-
+	values [][]Value
 	schema Schema
 }
 
 // Constructors
-func NewTable(schema Schema, values []Row) Table {
+func NewTable(schema Schema, values [][]Value) Table {
 	return Table{}
 }
 
@@ -53,7 +49,7 @@ func (t Table) Row(index int) Row {
 }
 
 //Row Setters
-func (t Table) AppendRow(row Row) Table {
+func (t Table) AppendRows(row ...Row) Table {
 	return t
 }
 

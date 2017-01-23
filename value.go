@@ -8,6 +8,8 @@ const (
 	StringType
 )
 
+//What if this was a simple box?  with `value interface{}`?
+
 type Value struct {
 	S string
 	F float64

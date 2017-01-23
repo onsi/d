@@ -30,7 +30,7 @@ func (s Schema) Row(values []Value) Row {
 	return NewRow(s, values)
 }
 
-func (s Schema) Table(values []Row) Table {
+func (s Schema) Table(values [][]Value) Table {
 	return NewTable(s, values)
 }
 
